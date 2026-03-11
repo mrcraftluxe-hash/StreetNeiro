@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MrCraftLuxe Shop</title>
     <style>
-        body { background: black; color: white; }
-        h1 { color: gold; }
+        body {
+            background: black;
+            color: white;
+            font-family: Arial;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: gold;
+            text-align: center;
+        }
+        .tg-link {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid gold;
+        }
+        a {
+            color: gold;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Тест</h1>
-    <p>Если ты видишь этот текст на черном фоне - HTML работает!</p>
+    <div class="container">
+        <h1>🏷️ MrCraftLuxe Shop</h1>
+        <div id="products"></div>
+        <div class="tg-link">
+            📩 Все покупки в TG: <a href="https://t.me/MrCraftLuxeTT" target="_blank">@MrCraftLuxeTT</a>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
