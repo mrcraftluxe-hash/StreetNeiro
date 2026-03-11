@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreetNeiro — без API, локальный AI</title>
+    <title>StreetNeiro — мгновенный AI помощник</title>
     <!-- Шрифты и иконки -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Transformer.js для локального AI -->
-    <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0"></script>
     <style>
         * {
             margin: 0;
@@ -88,19 +86,8 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: #ffaa33;
-            animation: pulse 1.5s infinite;
-        }
-
-        .status-dot.ready {
             background: #00ff9d;
             box-shadow: 0 0 10px #00ff9d;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
         }
 
         .chat-container {
@@ -264,14 +251,9 @@
             transition: all 0.2s;
         }
 
-        .send-btn:hover:not(:disabled) {
+        .send-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 0 20px #00ff9d;
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         .examples {
@@ -282,6 +264,7 @@
             margin-left: auto;
             margin-right: auto;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .example-item {
@@ -301,19 +284,6 @@
             background: #1a2f2a;
         }
 
-        .loading-bar {
-            height: 4px;
-            background: linear-gradient(90deg, #00ff9d, #00b8ff, #00ff9d);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            width: 100%;
-        }
-
-        @keyframes loading {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
         footer {
             text-align: center;
             font-size: 12px;
@@ -329,9 +299,9 @@
                 <i class="fas fa-brain logo-icon"></i>
                 <div class="site-title">StreetNeiro</div>
             </div>
-            <div class="model-badge" id="statusBadge">
-                <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">Загрузка модели...</span>
+            <div class="model-badge">
+                <span class="status-dot"></span>
+                <span>мгновенный старт</span>
             </div>
         </div>
 
@@ -340,10 +310,9 @@
                 <div class="message ai-message">
                     <div class="avatar ai-avatar"><i class="fas fa-robot"></i></div>
                     <div class="message-content">
-                        <p>👋 Йо, я <strong>StreetNeiro</strong> — локальный AI без API!</p>
-                        <p>📦 Модель загружается прямо в твой браузер. Это займёт 10-30 секунд при первом запуске.</p>
-                        <p>💻 После загрузки могу помогать с кодом офлайн, без интернета!</p>
-                        <p style="color: #00ff9d; margin-top: 10px;"><i class="fas fa-spinner fa-spin"></i> Статус: <span id="modelStatus">инициализация...</span></p>
+                        <p>👋 Йо, я <strong>StreetNeiro</strong> — твой уличный AI помощник!</p>
+                        <p>🚀 Работаю мгновенно, без загрузок и API ключей.</p>
+                        <p>💻 Спрашивай что угодно про код — помогу с примерами!</p>
                     </div>
                 </div>
             </div>
@@ -351,20 +320,20 @@
 
         <div class="input-area">
             <div class="input-wrapper">
-                <textarea id="userInput" placeholder="Загрузка модели, подожди..." rows="1" disabled></textarea>
-                <button class="send-btn" id="sendBtn" disabled><i class="fas fa-paper-plane"></i></button>
+                <textarea id="userInput" placeholder="Спроси про код..." rows="1"></textarea>
+                <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
             </div>
             
-            <div class="examples" id="examples" style="display: none;">
-                <div class="example-item" onclick="setExample('Напиши функцию на Python')">🐍 Python</div>
-                <div class="example-item" onclick="setExample('Как работает замыкание в JS?')">🔒 Замыкания</div>
-                <div class="example-item" onclick="setExample('Сделай анимацию на CSS')">✨ CSS</div>
-                <div class="example-item" onclick="setExample('Что такое React?')">⚛️ React</div>
-                <div class="example-item" onclick="setExample('Как отсортировать массив?')">📊 Сортировка</div>
+            <div class="examples">
+                <div class="example-item" onclick="setExample('Напиши функцию на Python для сортировки списка')">🐍 Python</div>
+                <div class="example-item" onclick="setExample('Как работает замыкание в JavaScript? Покажи пример')">🔒 Замыкания</div>
+                <div class="example-item" onclick="setExample('Сделай анимацию кнопки на CSS при наведении')">✨ CSS</div>
+                <div class="example-item" onclick="setExample('Напиши компонент счетчика на React')">⚛️ React</div>
+                <div class="example-item" onclick="setExample('Как сделать запрос к API на JavaScript?')">🌐 Fetch</div>
             </div>
             
             <footer>
-                Локальный AI в браузере | Не требует API ключа | Работает офлайн
+                StreetNeiro — быстрый AI помощник | Мгновенные ответы
             </footer>
         </div>
     </div>
@@ -377,81 +346,246 @@
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
         const chatContainer = document.getElementById('chatContainer');
-        const statusDot = document.getElementById('statusDot');
-        const statusText = document.getElementById('statusText');
-        const modelStatus = document.getElementById('modelStatus');
-        const examplesDiv = document.getElementById('examples');
 
-        // Состояние модели
-        let model = null;
-        let isModelReady = false;
+        // База знаний с ответами
+        const knowledgeBase = {
+            'python': `Вот пример функции сортировки на Python:
 
-        // Загрузка модели при старте
-        async function loadModel() {
-            try {
-                statusText.textContent = 'Загрузка модели...';
-                modelStatus.textContent = 'загрузка (30-60 сек)';
-                
-                // Загружаем маленькую модель для问答
-                // Используем модель для диалогов (можно заменить на другую)
-                const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0');
-                
-                modelStatus.textContent = 'загрузка файлов...';
-                
-                // Загружаем модель для генерации текста
-                model = await pipeline('text2text-generation', 'Xenova/LaMini-Flan-T5-783M');
-                
-                isModelReady = true;
-                statusDot.className = 'status-dot ready';
-                statusText.textContent = 'Модель готова';
-                modelStatus.innerHTML = '✅ готова к работе';
-                userInput.disabled = false;
-                sendBtn.disabled = false;
-                userInput.placeholder = 'Спроси StreetNeiro о коде...';
-                examplesDiv.style.display = 'flex';
-                userInput.focus();
-                
-                addAIMessage('✅ Модель загружена! Теперь я могу отвечать на вопросы офлайн. Спрашивай что угодно про код!');
-                
-            } catch (error) {
-                console.error('Ошибка загрузки модели:', error);
-                statusText.textContent = 'Ошибка загрузки';
-                modelStatus.innerHTML = '❌ ошибка загрузки';
-                addAIMessage('❌ Не удалось загрузить модель. Попробуй обновить страницу или использовать другой браузер (Chrome/Edge).');
-            }
+\`\`\`python
+# Быстрая сортировка (Quicksort)
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quicksort(left) + middle + quicksort(right)
+
+# Использование
+numbers = [3, 6, 8, 10, 1, 2, 1]
+sorted_numbers = quicksort(numbers)
+print(sorted_numbers)  # [1, 1, 2, 3, 6, 8, 10]
+
+# Или проще:
+print(sorted(numbers))  # встроенная сортировка
+\`\`\`
+
+Еще нужны примеры?`,
+
+            'javascript': `Вот пример замыкания в JavaScript:
+
+\`\`\`javascript
+// Замыкание - функция, которая запоминает свои внешние переменные
+function createCounter() {
+    let count = 0;  // переменная "замыкается"
+    
+    return {
+        increment: function() {
+            count++;
+            return count;
+        },
+        decrement: function() {
+            count--;
+            return count;
+        },
+        getCount: function() {
+            return count;
         }
+    };
+}
 
-        // Добавить сообщение пользователя
-        function addUserMessage(text) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-            messageDiv.innerHTML = `
-                <div class="avatar user-avatar"><i class="fas fa-user"></i></div>
-                <div class="message-content"><p>${escapeHtml(text)}</p></div>
-            `;
-            messagesDiv.appendChild(messageDiv);
-            scrollToBottom();
+// Используем
+const counter = createCounter();
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+console.log(counter.decrement()); // 1
+console.log(counter.getCount());  // 1
+// count недоступна напрямую извне!
+\`\`\`
+
+Замыкания часто используют для инкапсуляции данных.`,
+
+            'css': `Вот анимация кнопки при наведении:
+
+\`\`\`html
+<button class="neon-btn">Наведи на меня</button>
+
+<style>
+.neon-btn {
+    background: transparent;
+    border: 2px solid #00ff9d;
+    color: #00ff9d;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.neon-btn:hover {
+    background: #00ff9d;
+    color: #0a0c0f;
+    box-shadow: 0 0 20px #00ff9d;
+    transform: scale(1.05);
+}
+
+.neon-btn:active {
+    transform: scale(0.95);
+}
+</style>
+\`\`\`
+
+Могу сделать другие анимации!`,
+
+            'react': `Вот простой компонент счетчика на React:
+
+\`\`\`jsx
+import React, { useState } from 'react';
+
+function Counter() {
+    const [count, setCount] = useState(0);
+    
+    return (
+        <div style={{ textAlign: 'center', padding: '20px' }}>
+            <h2>Счетчик: {count}</h2>
+            <button 
+                onClick={() => setCount(count + 1)}
+                style={{
+                    padding: '10px 20px',
+                    margin: '5px',
+                    background: '#00ff9d',
+                    border: 'none',
+                    borderRadius: '5px'
+                }}
+            >
+                +1
+            </button>
+            <button 
+                onClick={() => setCount(count - 1)}
+                style={{
+                    padding: '10px 20px',
+                    margin: '5px',
+                    background: '#ff5e5e',
+                    border: 'none',
+                    borderRadius: '5px'
+                }}
+            >
+                -1
+            </button>
+            <button 
+                onClick={() => setCount(0)}
+                style={{
+                    padding: '10px 20px',
+                    margin: '5px',
+                    background: '#666',
+                    border: 'none',
+                    borderRadius: '5px',
+                    color: 'white'
+                }}
+            >
+                Сброс
+            </button>
+        </div>
+    );
+}
+
+export default Counter;
+\`\`\`
+
+Это база React с хуками.`,
+
+            'api': `Как сделать запрос к API на JavaScript:
+
+\`\`\`javascript
+// Способ 1: fetch (современный)
+async function getData() {
+    try {
+        const response = await fetch('https://api.example.com/data');
+        if (!response.ok) {
+            throw new Error('Ошибка сети');
         }
+        const data = await response.json();
+        console.log('Полученные данные:', data);
+        return data;
+    } catch (error) {
+        console.error('Ошибка:', error);
+    }
+}
 
-        // Добавить сообщение AI
-        function addAIMessage(text) {
+// Способ 2: с обработкой загрузки
+function fetchWithLoading() {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('https://api.example.com/data');
+            const json = await response.json();
+            setData(json);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { data, loading, error, fetchData };
+}
+
+// Способ 3: старый XMLHttpRequest (для истории)
+function oldWay() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.example.com/data');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            console.log(JSON.parse(xhr.responseText));
+        }
+    };
+    xhr.send();
+}
+\`\`\`
+
+Fetch — самый современный способ!`,
+
+            'default': `Извини, я пока не знаю ответа на этот вопрос. Но могу помочь с:
+• Python (сортировка, функции)
+• JavaScript (замыкания, промисы)
+• CSS (анимации, Flexbox)
+• React (компоненты, хуки)
+• API (fetch, axios)
+
+Выбери тему из примеров или уточни вопрос!`
+        };
+
+        // Добавить сообщение
+        function addMessage(text, isUser = false) {
             const messageDiv = document.createElement('div');
-            messageDiv.className = 'message ai-message';
+            messageDiv.className = `message ${isUser ? '' : 'ai-message'}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = `avatar ${isUser ? 'user-avatar' : 'ai-avatar'}`;
+            avatar.innerHTML = isUser ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+
+            const content = document.createElement('div');
+            content.className = 'message-content';
             
             // Форматируем текст с подсветкой кода
-            const formattedText = formatMessage(text);
-            
-            messageDiv.innerHTML = `
-                <div class="avatar ai-avatar"><i class="fas fa-robot"></i></div>
-                <div class="message-content">${formattedText}</div>
-            `;
+            content.innerHTML = formatMessage(text);
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
             messagesDiv.appendChild(messageDiv);
-            
+
             // Подсвечиваем код
-            messageDiv.querySelectorAll('pre code').forEach(block => {
+            content.querySelectorAll('pre code').forEach(block => {
                 hljs.highlightElement(block);
             });
-            
+
             scrollToBottom();
         }
 
@@ -499,36 +633,36 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // Генерация ответа через локальную модель
-        async function generateResponse(prompt) {
-            if (!model || !isModelReady) {
-                return "Модель ещё загружается, подожди немного...";
+        // Поиск ответа в базе знаний
+        function findAnswer(question) {
+            question = question.toLowerCase();
+            
+            if (question.includes('python') || question.includes('питон') || question.includes('сортировк')) {
+                return knowledgeBase.python;
             }
-
-            try {
-                // Специальный промпт для кода
-                const fullPrompt = `Ты StreetNeiro, помощник по программированию. Отвечай кратко, с примерами кода если нужно. Вопрос: ${prompt}`;
-                
-                const result = await model(fullPrompt, {
-                    max_new_tokens: 200,
-                    temperature: 0.7,
-                    do_sample: true,
-                });
-                
-                return result[0].generated_text;
-            } catch (error) {
-                console.error('Ошибка генерации:', error);
-                return "Извини, ошибка при генерации ответа. Попробуй ещё раз.";
+            if (question.includes('javascript') || question.includes('js') || question.includes('замыкани')) {
+                return knowledgeBase.javascript;
             }
+            if (question.includes('css') || question.includes('анимац') || question.includes('стил')) {
+                return knowledgeBase.css;
+            }
+            if (question.includes('react') || question.includes('компонент') || question.includes('хук')) {
+                return knowledgeBase.react;
+            }
+            if (question.includes('api') || question.includes('fetch') || question.includes('запрос') || question.includes('axios')) {
+                return knowledgeBase.api;
+            }
+            
+            return knowledgeBase.default;
         }
 
-        // Обработка отправки
-        async function handleSend() {
+        // Отправка сообщения
+        function sendMessage() {
             const text = userInput.value.trim();
-            if (!text || !isModelReady) return;
+            if (!text) return;
 
-            // Показываем сообщение пользователя
-            addUserMessage(text);
+            // Добавляем сообщение пользователя
+            addMessage(text, true);
             
             // Очищаем поле
             userInput.value = '';
@@ -537,14 +671,12 @@
             // Показываем индикатор печати
             showTyping();
             
-            // Генерируем ответ
-            const response = await generateResponse(text);
-            
-            // Убираем индикатор
-            removeTyping();
-            
-            // Показываем ответ
-            addAIMessage(response);
+            // Ищем ответ (имитация задержки)
+            setTimeout(() => {
+                removeTyping();
+                const answer = findAnswer(text);
+                addMessage(answer, false);
+            }, 800);
         }
 
         // Установить пример
@@ -556,12 +688,12 @@
         };
 
         // Слушатели
-        sendBtn.addEventListener('click', handleSend);
+        sendBtn.addEventListener('click', sendMessage);
 
         userInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                handleSend();
+                sendMessage();
             }
         });
 
@@ -570,13 +702,8 @@
             this.style.height = (this.scrollHeight) + 'px';
         });
 
-        // Загружаем модель при старте
-        loadModel();
-
-        // Для совместимости с браузерами
-        if (!window.crossOriginIsolated) {
-            console.log('Запуск в обычном режиме');
-        }
+        // Фокус на поле ввода
+        userInput.focus();
     </script>
 </body>
 </html>
