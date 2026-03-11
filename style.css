@@ -1,77 +1,82 @@
 body {
-    font-family: 'Courier New', 'Minecraft', monospace;
-    background: #2d2d2d;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0c0b1a;
     margin: 0;
     padding: 20px;
     color: #fff;
-    image-rendering: pixelated;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    border: 4px solid #8b8b8b;
-    background: #3b3b3b;
-    padding: 20px;
 }
 
 h1 {
     text-align: center;
-    color: #ffff00;
-    text-shadow: 3px 3px 0 #2a2a2a;
+    color: #a27bff;
+    text-shadow: 0 0 10px #6b3eff;
     font-size: 2.5em;
-    margin: 0 0 20px 0;
 }
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
 }
 
 .product-card {
-    background: #4b4b4b;
-    padding: 15px;
-    border: 3px solid #6b6b6b;
-    border-radius: 0;
-    image-rendering: pixelated;
-    box-shadow: inset -2px -2px 0 #2a2a2a, inset 2px 2px 0 #a1a1a1;
+    background: #1a1730;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #2d2850;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: #a27bff;
+    box-shadow: 0 10px 25px rgba(106, 59, 255, 0.3);
 }
 
 .cat {
-    color: #aaffaa;
+    color: #7e6bcc;
     font-size: 12px;
-    display: block;
-    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: 600;
 }
 
 .price {
-    color: #ffff55;
+    color: #6effa7;
     font-weight: bold;
-    font-size: 20px;
-    margin-top: 10px;
+    font-size: 22px;
+    text-shadow: 0 0 8px #00ff80;
 }
 
 .tg-link {
     text-align: center;
-    padding: 15px;
-    background: #4b4b4b;
-    border: 3px solid #6b6b6b;
-    margin-top: 20px;
-    box-shadow: inset -2px -2px 0 #2a2a2a, inset 2px 2px 0 #a1a1a1;
+    padding: 20px;
+    background: #1a1730;
+    border-radius: 50px;
+    margin-top: 30px;
+    border: 1px solid #2d2850;
+    font-size: 18px;
 }
 
 a {
-    color: #55ffff;
+    color: #a27bff;
     text-decoration: none;
+    font-weight: 600;
 }
 
 a:hover {
-    color: #ffff55;
+    text-decoration: underline;
+    color: #c4a7ff;
 }
